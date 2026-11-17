@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohan Nalluri | Hardware & Software Engineer</title>
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <!-- Favicon: opposite of the browser theme (black on light tabs, white on dark tabs) -->
+    <link rel="icon" type="image/png" href="assets/favicon-black.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="assets/favicon-white.png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Tailwind config (must load after the Tailwind CDN script) -->
+    <script src="js/tailwind-config.js"></script>
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="font-sans antialiased text-sm selection:bg-neonBlue selection:text-deepBlue">
+
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Canvas Background -->
+    <canvas id="network-canvas"></canvas>
+
+    <!-- Navigation -->
+    <header class="site-header fixed top-0 w-full z-50 bg-deepBlue/90 backdrop-blur-sm border-b border-cardBlue">
+        <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+            <a href="#" class="logo-link flex items-center gap-2 text-lg font-bold tracking-tight text-textLight">
+                <img src="assets/logo-white.png" alt="MN logo" class="h-12 w-12" />
+                <!-- <span>Mohan<span class="text-neonBlue">.N</span></span> -->
+            </a>
+            <nav class="hidden md:flex space-x-6 font-medium text-textMuted text-xs uppercase tracking-widest">
+                <a href="#skills" class="nav-link hover:text-neonBlue transition-colors">Skills</a>
+                <a href="#experience" class="nav-link hover:text-neonBlue transition-colors">Experience</a>
+                <a href="#projects" class="nav-link hover:text-neonBlue transition-colors">Projects</a>
+                <a href="#contact" class="nav-link hover:text-neonBlue transition-colors">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-28 pb-12 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <div style="--delay:.15s" class="hero-anim inline-block px-3 py-1 mb-4 text-[10px] font-medium tracking-widest text-neonBlue uppercase border border-neonBlue/30 rounded-full bg-neonBlue/5">
+                Engineer &middot; Linkwell Telesystems Pvt Ltd
+            </div>
+
+            <div style="--delay:.3s" class="hero-anim mb-4">
+                <h1 id="hero-title" class="hero-title text-3xl sm:text-4xl md:text-5xl font-bold text-textLight" data-text="Hey There! Am Mohan Nalluri...">
+                    Hey There! Am Mohan Nalluri...
+                </h1>
+            </div>
+
+            <p style="--delay:.5s" class="hero-anim text-base text-textMuted max-w-xl mx-auto mb-6 leading-relaxed">
+                I design the hardware and write the software that runs on it. From SMD PCB reverse engineering and RS-485 communication to inverter configuration tools and secure embedded systems, I build things that work and keep improving them until they do.
+            </p>
+            <div style="--delay:.7s" class="hero-anim flex items-center justify-center gap-4">
+                <a href="#projects" class="btn-shine px-5 py-2.5 text-xs font-semibold bg-neonBlue text-deepBlue rounded hover:bg-white transition-all shadow-[0_0_15px_rgba(0,210,255,0.4)]">
+                    View Projects
+                </a>
+                <a href="#contact" class="btn-shine px-5 py-2.5 text-xs font-semibold border border-textMuted text-textLight rounded hover:border-neonBlue hover:text-neonBlue transition-all">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-12 px-6 scroll-mt-14">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="reveal text-2xl font-bold text-textLight mb-6">Technical Skills</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="glass-card reveal p-5 rounded-lg ">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="card-icon text-neonBlue"><i class="fas fa-microchip text-xl"></i></span>
+                        <h4 class="text-base font-bold text-textLight">Hardware</h4>
+                    </div>
+                    <ul class="space-y-2 text-xs text-textMuted leading-relaxed">
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Component selection and datasheet-driven design</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>SMD PCB reverse engineering and IC identification</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Schematic development and pinout documentation</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Voltage-level matching and signal integrity</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Bluetooth module integration (Telink TLSR8208D)</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Multi-source DC power setups (6 DC sources operated together)</span></li>
+                    </ul>
+                </div>
+                <div class="glass-card reveal p-5 rounded-lg ">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="card-icon text-neonBlue"><i class="fas fa-code text-xl"></i></span>
+                        <h4 class="text-base font-bold text-textLight">Software</h4>
+                    </div>
+                    <ul class="space-y-2 text-xs text-textMuted leading-relaxed">
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Embedded C and microcontroller firmware</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>RTOS and VxWorks</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Register-level read/write in hex with read-back verification</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Configuration and monitoring tool development</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Fault handling and parameter monitoring (eToday, eTotal, power, efficiency)</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Two-step verification with time-bound OTP</span></li>
+                    </ul>
+                </div>
+                <div class="glass-card reveal p-5 rounded-lg md:col-span-2">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="card-icon text-neonBlue"><i class="fas fa-network-wired text-xl"></i></span>
+                        <h4 class="text-base font-bold text-textLight mr-2">Protocols</h4>
+                        <div class="flex flex-wrap gap-2 text-[10px] text-neonBlue">
+                            <span class="chip bg-neonBlue/10 px-2 py-1 rounded">UART</span>
+                            <span class="chip bg-neonBlue/10 px-2 py-1 rounded">I2C</span>
+                            <span class="chip bg-neonBlue/10 px-2 py-1 rounded">SPI</span>
+                            <span class="chip bg-neonBlue/10 px-2 py-1 rounded">CAN</span>
+                            <span class="chip bg-neonBlue/10 px-2 py-1 rounded">RS-485</span>
+                            <span class="chip bg-neonBlue/10 px-2 py-1 rounded">DLMS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-12 px-6 border-t border-cardBlue bg-deepBlue/50 scroll-mt-14">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="reveal text-2xl font-bold text-textLight mb-6">Professional Experience</h3>
+
+            <div class="relative border-l border-neonBlue/30 ml-2">
+                <div class="relative pl-8">
+                    <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-neonBlue shadow-[0_0_10px_rgba(0,210,255,0.8)]"><span class="absolute inset-0 rounded-full bg-neonBlue opacity-60 animate-ping"></span></span>
+                    <div class="glass-card reveal p-5 rounded-lg">
+                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-4">
+                            <div>
+                                <h4 class="text-base font-bold text-textLight">Engineer</h4>
+                                <p class="text-xs text-neonBlue">Linkwell Telesystems Pvt Ltd</p>
+                            </div>
+                            <p class="text-[10px] uppercase tracking-widest text-textMuted">2024 &ndash; Present</p>
+                        </div>
+                        <ul class="space-y-2 text-xs text-textMuted leading-relaxed">
+                            <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Developed the MICRO INVERTER CONFIG TOOL to configure inverter details and DC sources over RS-485, with every value written to its register and read back to verify.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Operated 6 DC sources at the same time over RS-485 and monitored eToday, eTotal, rated power, AC meter readings, efficiency and faults.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Reverse engineered SMD-mounted PCBs, producing pinout diagrams and connecting the ICs to microcontrollers with matched voltage levels.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Integrated a Telink TLSR8208D Bluetooth module into a smart energy meter, from schematics to a reliable MCU connection.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-chevron-right text-neonBlue text-[8px] mt-1.5"></i><span>Built a two-step verification system that generates and delivers a time-bound OTP to restrict access to authorized users.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-12 px-6 scroll-mt-14">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="reveal text-2xl font-bold text-textLight mb-6">Featured Engineering Projects</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="glass-card reveal p-5 rounded-lg">
+                    <div class="card-icon text-neonBlue mb-3"><i class="fas fa-sliders text-2xl"></i></div>
+                    <h4 class="text-base font-bold text-textLight mb-2">MICRO INVERTER CONFIG TOOL</h4>
+                    <p class="text-xs text-textMuted leading-relaxed mb-3">
+                        A tool to configure inverter details and DC sources over RS-485. Values entered in ASCII in the relevant fields are written to the matching register in hex, then read back to verify. It runs 6 DC sources at the same time and reports eToday, eTotal, rated power, AC meter readings, efficiency and faults.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-neonBlue">
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">RS-485</span>
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">Register Read/Write</span>
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">6 DC Sources</span>
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">Fault Handling</span>
+                    </div>
+                </div>
+                <div class="glass-card reveal p-5 rounded-lg">
+                    <div class="card-icon text-neonBlue mb-3"><i class="fas fa-microchip text-2xl"></i></div>
+                    <h4 class="text-base font-bold text-textLight mb-2">SMD-Mounted PCB Reverse Engineering</h4>
+                    <p class="text-xs text-textMuted leading-relaxed mb-3">
+                        Identified and analyzed ICs in SMD PCBs to reverse engineer designs. Created intricate pinout diagrams, connected ICs to microcontrollers, and balanced voltage levels for secure communication.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-neonBlue">
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">Hardware Analysis</span>
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">Signal Integrity</span>
+                    </div>
+                </div>
+                <div class="glass-card reveal p-5 rounded-lg">
+                    <div class="card-icon text-neonBlue mb-3"><i class="fab fa-bluetooth-b text-2xl"></i></div>
+                    <h4 class="text-base font-bold text-textLight mb-2">Bluetooth Module & Smart Energy Meter</h4>
+                    <p class="text-xs text-textMuted leading-relaxed mb-3">
+                        Integrated a TELINK Bluetooth module (TLSR8208D) into a smart energy meter. Developed schematics, established reliable MCU connection, and ensured precise voltage matching for wireless data transmission.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-neonBlue">
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">TLSR8208D</span>
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">Wireless Comms</span>
+                    </div>
+                </div>
+                <div class="glass-card reveal p-5 rounded-lg">
+                    <div class="card-icon text-neonBlue mb-3"><i class="fas fa-shield-alt text-2xl"></i></div>
+                    <h4 class="text-base font-bold text-textLight mb-2">Time-Limited Control System (OTP)</h4>
+                    <p class="text-xs text-textMuted leading-relaxed mb-3">
+                        Developed a two-step verification procedure limiting access to authorized users. Integrated a system that generates and delivers a time-bound OTP for enhanced security over sensitive hardware/data.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-[10px] text-neonBlue">
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">Embedded C</span>
+                        <span class="chip bg-neonBlue/10 px-2 py-1 rounded">Security</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 px-6 scroll-mt-14 border-t border-cardBlue bg-deepBlue/50">
+        <div class="reveal max-w-2xl mx-auto text-center">
+            <h2 class="text-xs font-semibold uppercase tracking-widest text-neonBlue mb-2">What's Next?</h2>
+            <h3 class="text-2xl font-bold text-textLight mb-4">Get In Touch</h3>
+            <p class="text-sm text-textMuted mb-6">
+                I am actively seeking demanding roles in hardware design and embedded systems. Whether you have a question or a potential opportunity, I'll try my best to get back to you!
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                <a href="mailto:nallurimohan999@gmail.com" class="link-underline flex items-center gap-2 text-sm text-textLight hover:text-neonBlue transition-colors">
+                    <i class="fas fa-envelope"></i> nallurimohan999@gmail.com
+                </a>
+                <span class="hidden sm:block text-textMuted">|</span>
+                <a href="tel:+916301169612" class="link-underline flex items-center gap-2 text-sm text-textLight hover:text-neonBlue transition-colors">
+                    <i class="fas fa-phone"></i> +91 6301169612
+                </a>
+            </div>
+            <div class="flex justify-center gap-6">
+                <a href="https://linkedin.com/in/mohan-nalluri" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full hover:-translate-y-1 hover:shadow-[0_0_14px_rgba(0,210,255,0.45)] border border-textMuted text-textMuted hover:border-neonBlue hover:text-neonBlue hover:bg-neonBlue/10 transition-all">
+                    <i class="fab fa-linkedin-in text-lg"></i>
+                </a>
+                <a href="https://github.com/veerabalamohan" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full hover:-translate-y-1 hover:shadow-[0_0_14px_rgba(0,210,255,0.45)] border border-textMuted text-textMuted hover:border-neonBlue hover:text-neonBlue hover:bg-neonBlue/10 transition-all">
+                    <i class="fab fa-github text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <button id="back-to-top" type="button" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Canvas Animation Script -->
+    <script src="js/network.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
