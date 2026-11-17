@@ -1,0 +1,355 @@
+body {
+    background-color: #0a192f;
+    color: #ccd6f6;
+    overflow-x: hidden;
+}
+#network-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.6;
+}
+.glass-card {
+    background: rgba(17, 34, 64, 0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 210, 255, 0.15);
+}
+/* Typing Effect (text is typed by js/main.js; it wraps and always completes) */
+h1.hero-title {
+    letter-spacing: .03em;
+    line-height: 1.25;
+    overflow: visible;
+}
+.hero-title .pending {
+    visibility: hidden; /* reserves the final layout so nothing jumps while typing */
+}
+.hero-title .caret {
+    display: inline-block;
+    width: 0;
+    height: 1em;
+    margin: 0 .04em;
+    vertical-align: -.1em;
+    border-right: .12em solid #00d2ff;
+    animation: blink-caret .75s step-end infinite;
+}
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #00d2ff; }
+}
+
+/* ------------------------------------------------------------------
+   Motion & interaction layer
+   ------------------------------------------------------------------ */
+:root {
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; translate: 0 24px; }
+    to   { opacity: 1; translate: 0 0; }
+}
+@keyframes slideDown {
+    from { translate: 0 -100%; }
+    to   { translate: 0 0; }
+}
+
+/* Page load: header drops in, hero content rises in sequence */
+.site-header {
+    animation: slideDown 0.7s var(--ease) both;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.site-header.scrolled {
+    background-color: rgba(10, 25, 47, 0.97);
+    box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.7);
+}
+.hero-anim {
+    animation: fadeUp 0.8s var(--ease) var(--delay, 0s) both;
+}
+
+/* Scroll reveal (only hidden when JS is running) */
+.js .reveal { opacity: 0; }
+.js .reveal.is-visible {
+    opacity: 1;
+    animation: fadeUp 0.8s var(--ease) var(--delay, 0s) backwards;
+}
+
+/* Scroll progress bar */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    z-index: 60;
+    pointer-events: none;
+    transform-origin: left;
+    transform: scaleX(var(--progress, 0));
+    background: linear-gradient(90deg, #00d2ff, #ffffff);
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.7);
+}
+
+/* Navigation: animated underline + active section */
+.nav-link {
+    position: relative;
+    padding: 4px 0;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: #00d2ff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease);
+}
+.nav-link:hover::after,
+.nav-link.active::after { transform: scaleX(1); }
+.nav-link.active { color: #00d2ff; }
+
+/* Logo */
+.logo-link img {
+    transition: scale 0.35s var(--ease), filter 0.35s;
+}
+.logo-link:hover img {
+    scale: 1.08;
+    filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
+}
+
+/* Cards: lift, glow border and a spotlight that follows the cursor */
+.glass-card {
+    position: relative;
+    transition: translate 0.35s var(--ease), border-color 0.35s,
+                box-shadow 0.35s, background-color 0.35s;
+}
+.glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(0, 210, 255, 0.13), transparent 60%);
+}
+.glass-card:hover {
+    translate: 0 -4px;
+    border-color: rgba(0, 210, 255, 0.45);
+    background-color: rgba(17, 34, 64, 0.9);
+    box-shadow: 0 14px 34px -14px rgba(0, 210, 255, 0.35);
+}
+.glass-card:hover::before { opacity: 1; }
+
+.card-icon {
+    display: inline-block;
+    transform-origin: left center;
+    transition: scale 0.35s var(--ease), filter 0.35s;
+}
+.glass-card:hover .card-icon {
+    scale: 1.15;
+    filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
+}
+
+.glass-card li {
+    transition: color 0.25s, translate 0.25s var(--ease);
+}
+.glass-card li:hover {
+    color: #ccd6f6;
+    translate: 4px 0;
+}
+
+.chip {
+    display: inline-block;
+    transition: background-color 0.25s, translate 0.25s var(--ease), box-shadow 0.25s;
+}
+.chip:hover {
+    background-color: rgba(0, 210, 255, 0.22);
+    translate: 0 -2px;
+    box-shadow: 0 4px 12px -4px rgba(0, 210, 255, 0.5);
+}
+
+/* Buttons: lift + light sweep */
+.btn-shine {
+    position: relative;
+    overflow: hidden;
+    transition: translate 0.25s var(--ease), box-shadow 0.25s,
+                background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+.btn-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    transform: skewX(-20deg);
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transition: left 0.6s var(--ease);
+}
+.btn-shine:hover { translate: 0 -2px; }
+.btn-shine:hover::after { left: 140%; }
+
+/* Contact links: underline draws in on hover */
+.link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0 1px;
+    padding-bottom: 2px;
+    transition: background-size 0.3s var(--ease), color 0.3s;
+}
+.link-underline:hover { background-size: 100% 1px; }
+
+/* Back to top */
+#back-to-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 50;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    color: #00d2ff;
+    background: rgba(17, 34, 64, 0.85);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    translate: 0 12px;
+    pointer-events: none;
+    cursor: pointer;
+    transition: opacity 0.3s, translate 0.3s var(--ease), background-color 0.25s,
+                color 0.25s, box-shadow 0.25s;
+}
+#back-to-top.show {
+    opacity: 1;
+    translate: 0 0;
+    pointer-events: auto;
+}
+#back-to-top:hover {
+    background: #00d2ff;
+    color: #0a192f;
+    box-shadow: 0 0 16px rgba(0, 210, 255, 0.6);
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .js .reveal { opacity: 1; }
+}
+
+/* ------------------------------------------------------------------
+   Colour accents (the neon-blue base stays; these add highlights)
+   ------------------------------------------------------------------ */
+:root { --accent: 0, 210, 255; }
+.accent-cyan   { --accent: 0, 210, 255; }
+.accent-violet { --accent: 167, 139, 250; }
+.accent-pink   { --accent: 255, 95, 210; }
+.accent-mint   { --accent: 52, 255, 170; }
+.accent-amber  { --accent: 255, 184, 77; }
+.accent-text   { color: rgb(var(--accent)); }
+.chev          { color: rgb(var(--accent)); }
+
+/* Soft coloured glows behind the neon network */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+        radial-gradient(640px circle at 88% 6%,  rgba(167, 139, 250, 0.16), transparent 60%),
+        radial-gradient(720px circle at 6% 94%,  rgba(255, 95, 210, 0.10),  transparent 60%),
+        radial-gradient(520px circle at 52% 42%, rgba(0, 210, 255, 0.06),   transparent 65%);
+}
+
+/* Gradient headline text */
+.gradient-text {
+    background-image: linear-gradient(90deg, #00d2ff, #a78bfa, #ff5fd2, #a78bfa, #00d2ff);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 9s linear infinite;
+}
+@keyframes gradientShift { to { background-position: 200% 0; } }
+
+/* Section titles get a gradient underline */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 3px;
+    margin-top: 8px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #00d2ff, #a78bfa, #ff5fd2);
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+}
+
+/* Cards take their own accent colour */
+.glass-card { border-color: rgba(var(--accent), 0.2); }
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.7;
+    background: linear-gradient(90deg, transparent, rgb(var(--accent)), transparent);
+    transition: opacity 0.35s, left 0.35s var(--ease), right 0.35s var(--ease);
+}
+.glass-card:hover::after { opacity: 1; left: 4%; right: 4%; }
+.glass-card::before {
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(var(--accent), 0.14), transparent 60%);
+}
+.glass-card:hover {
+    border-color: rgba(var(--accent), 0.55);
+    box-shadow: 0 14px 34px -14px rgba(var(--accent), 0.45);
+}
+.card-icon { color: rgb(var(--accent)); }
+.glass-card:hover .card-icon { filter: drop-shadow(0 0 8px rgba(var(--accent), 0.7)); }
+.chip {
+    color: rgb(var(--accent));
+    background-color: rgba(var(--accent), 0.12);
+}
+.chip:hover {
+    background-color: rgba(var(--accent), 0.24);
+    box-shadow: 0 4px 12px -4px rgba(var(--accent), 0.55);
+}
+
+/* Experience timeline */
+.timeline { border-color: rgba(var(--accent), 0.35); }
+.timeline-dot {
+    background-color: rgb(var(--accent));
+    box-shadow: 0 0 10px rgba(var(--accent), 0.8);
+}
+
+/* Primary button, progress bar, nav underline */
+.btn-primary {
+    background-image: linear-gradient(90deg, #00d2ff, #a78bfa);
+    color: #0a192f;
+    box-shadow: 0 0 18px rgba(0, 210, 255, 0.35);
+}
+.btn-primary:hover {
+    box-shadow: 0 0 22px rgba(167, 139, 250, 0.55), 0 0 12px rgba(0, 210, 255, 0.4);
+}
+#scroll-progress { background: linear-gradient(90deg, #00d2ff, #a78bfa, #ff5fd2); }
+.nav-link::after { background: linear-gradient(90deg, #00d2ff, #a78bfa); }
